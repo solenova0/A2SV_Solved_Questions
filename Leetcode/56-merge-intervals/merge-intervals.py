@@ -6,12 +6,10 @@ class Solution:
         intervals.sort()
         merged = [intervals[0]]
 
-        for start, end in intervals[1:]:
-            last_end = merged[-1][1]
-
-            if start <= last_end:
-                merged[-1][1] = max(last_end, end)
+        
+        for start,end in intervals[1:]:
+            if merged[-1][1] >= start:
+                merged[-1][1] = max(end,merged[-1][1])
             else:
-                merged.append([start, end])
-
+                merged.append([start,end])
         return merged
