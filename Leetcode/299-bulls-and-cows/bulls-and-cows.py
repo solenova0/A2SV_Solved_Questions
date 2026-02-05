@@ -8,7 +8,6 @@ class Solution:
                 hm[v] = 1
         bull = 0
         cow = 0
-        print(hm)
         for i in range(len(guess)):
             if secret[i] == guess[i]:
                 bull += 1
