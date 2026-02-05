@@ -4,8 +4,6 @@ class Solution:
         ans = []
         res = []
         players = set()
-
-        # count losses
         for i in range(len(matches)):
             winner = matches[i][0]
             loser = matches[i][1]
