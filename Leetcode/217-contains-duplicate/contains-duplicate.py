@@ -6,5 +6,6 @@ class Solution:
             if freq[v] > 1:
                 return True
         return False
-
+        # numSet = set(nums)
+        # return len(numSet) != len(nums)
         
