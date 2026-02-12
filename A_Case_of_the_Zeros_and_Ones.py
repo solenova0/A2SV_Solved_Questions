@@ -1,0 +1,6 @@
+n = int(input())
+s = input()
+zeros = s.count('0')
+ones = s.count('1')
+y = min(ones,zeros)
+print(n- 2*y)
