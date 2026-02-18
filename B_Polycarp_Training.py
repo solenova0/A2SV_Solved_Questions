@@ -6,4 +6,4 @@ count = 1
 for v in a:
     if v >= count:
         count += 1
-print(count -)
+print(count - 1)
