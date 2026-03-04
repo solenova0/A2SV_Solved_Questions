@@ -5,7 +5,4 @@ class Solution:
         for v in nums:
             summ += v
             total = min(total , summ)
-        if total > 0:
-            return 1
-        else:
-            return abs(total) + 1
+        return abs(total) + 1
