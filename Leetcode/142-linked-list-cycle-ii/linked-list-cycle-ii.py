@@ -20,4 +20,3 @@ class Solution:
                     slow = slow.next
                 return slow
         return None
-__import__("atexit").register(lambda: open("display_runtime.txt", "w").write("0"))
