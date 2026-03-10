@@ -7,8 +7,6 @@ class Solution:
                 stack.pop()
             if stack and n < stack[-1][0] and n > stack[-1][1]:
                 return True
-
-            stack.append([n, minn]) 
             minn = min(n, minn)
-
+            stack.append([n, minn]) 
         return False
