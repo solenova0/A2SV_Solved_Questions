@@ -1,26 +1,21 @@
 t = int(input())
 for _ in range(t):
     n = int(input())
-    arr = list(map(int, (x for x in input().split())))
+    a = list(map(int, input().split()))
 
-    if arr == sorted(arr):
-        print(0)
-        continue
-
-    if len(set(arr)) == 2:
-        ma = max(arr)
-        mi = min(arr)
-
-        if (ma - mi) % 2 == 0:
-            print(mi + ((ma - mi) // 2))
+    L, R = 0, 10**9
+    for i in range(n - 1):
+        if a[i] == a[i+1]:
             continue
 
+        s = a[i] + a[i+1]
 
-    x = 81409090 - 29613295  
-    for i in range(n):
-        arr[i] = abs(arr[i] - x)
-    print(arr)
-    if arr == sorted(arr):
-        print(x)
+        if a[i] < a[i+1]:
+            R = min(R, s // 2)
+        else:
+            L = max(L, (s + 1) // 2)
+
+    if L <= R :
+        print(L)
     else:
-        print(-1)    
+        print(-1)
