@@ -2,15 +2,16 @@ t = int(input())
 for _ in range(t):
     n = int(input())
     a = list(map(int, input().split()))
+    a.sort()
+    mx = a[-1]
     ans = 0
-    for k in range(n-1, 1, -1):
+
+    for k in range(2, n):
         l = 0
         r = k - 1
-        if a[k - 2] + a[k -1] < a[k]:
-            ans = 0
-            break
+        
         while l < r:
-            if a[l] + a[r] > a[k]:
+            if a[l] + a[r] > a[k] and a[l] + a[r] + a[k] > mx:
                 ans += r - l
                 r -= 1
             else:
