@@ -2,7 +2,7 @@ n, m = map(int, input().split())
 a = list(map(int, input().split()))
 b = list(map(int, input().split()))
 
-i ,j = 0 , 0
+i = j = 0
 ans = 0
 
 while i < n and j < m:
@@ -11,18 +11,18 @@ while i < n and j < m:
     elif a[i] > b[j]:
         j += 1
     else:
-        v = a[i]
+        val = a[i]
         
-        count_a = 0
-        while i < n and a[i] == v:
-            count_a += 1
+        cntA = 0
+        while i < n and a[i] == val:
+            cntA += 1
             i += 1
         
-        count_b = 0
-        while j < m and b[j] == v:
-            count_b += 1
+        cntB = 0
+        while j < m and b[j] == val:
+            cntB += 1
             j += 1
         
-        ans += count_a * count_b
+        ans += cntA * cntB
 
 print(ans)
