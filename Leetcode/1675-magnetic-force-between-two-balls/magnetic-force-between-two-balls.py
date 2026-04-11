@@ -1,6 +1,6 @@
 class Solution:
     def maxDistance(self, position: List[int], m: int) -> int:
-        position.sort()
+        position.sort() 
 
         def canPlace(dist):
             count = 1
@@ -17,12 +17,12 @@ class Solution:
         low, high = 1, position[-1] - position[0]
 
         while low < high:
-            mid = (low + high + 1) // 2
+            mid = (low + high + 1 ) // 2
             if canPlace(mid):
                 low = mid
             else:
                 high = mid - 1
 
-        return low
+        return high
 
             
