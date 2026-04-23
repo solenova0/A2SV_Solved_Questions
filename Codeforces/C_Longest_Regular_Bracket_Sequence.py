@@ -125,25 +125,3 @@ print(maxlen , count)
 
 # if __name__ == "__main__":
 #     solve()
-
-
-
-import sys
-input = sys.stdin.readline
-
-t = int(input())
-for _ in range(t):
-    n = int(input())
-    a = list(map(int, input().split()))
-    
-    a.sort()
-    
-    b_prev = 1
-    ans = a[0] - 1  # for first element
-    
-    for i in range(1, n):
-        b_curr = min(b_prev + 1, a[i])
-        ans += a[i] - b_curr
-        b_prev = b_curr
-    
-    print(ans)

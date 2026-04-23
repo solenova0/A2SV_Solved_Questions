@@ -1,6 +1,5 @@
 def solve():
     n, m, k = map(int, input().split())
-
     def find(mid):
         count = 0
         for i in range(1, n + 1):
