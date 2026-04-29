@@ -26,28 +26,24 @@ xor = lambda x: x ^ RANDOM
 test_cases = lambda d=0: intinput() if d == 0 else d
 
 def solve():
-    n, x = map(int, input().split())
-    a = list(map(int, input().split()))
+    n = num()
+    enemy = list(word())
+    dawit = word()
+    # print(enemy)
 
-    low, high = 1, 2 * 10**9
+    ans = 0
+    for j in range(n):
+        if dawit[j] == '1':
+            if j > 0 and enemy[j - 1] == '1':
+                ans += 1
+                enemy[j - 1] = '0'
+            elif enemy[j] == '0':
+                ans += 1
+                enemy[j] = '0'
+            elif j < n - 1 and enemy[j + 1] == '1':
+                ans += 1
+                enemy[j + 1] = '0'
 
-    def can(h):
-        water = 0
-        for v in a:
-            if v < h:
-                water += (h - v)
-                if water > x:
-                    return False
-        return True
-
-    while low <= high:
-        mid = (low + high) // 2
-        if can(mid):
-            low = mid + 1
-        else:
-            high = mid - 1
-
-    print(high)
-
+    print(ans)
 for _ in range(test_cases()):
     solve()

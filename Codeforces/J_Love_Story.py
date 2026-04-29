@@ -26,28 +26,13 @@ xor = lambda x: x ^ RANDOM
 test_cases = lambda d=0: intinput() if d == 0 else d
 
 def solve():
-    n, x = map(int, input().split())
-    a = list(map(int, input().split()))
-
-    low, high = 1, 2 * 10**9
-
-    def can(h):
-        water = 0
-        for v in a:
-            if v < h:
-                water += (h - v)
-                if water > x:
-                    return False
-        return True
-
-    while low <= high:
-        mid = (low + high) // 2
-        if can(mid):
-            low = mid + 1
-        else:
-            high = mid - 1
-
-    print(high)
+    a = "codeforces"
+    s = word()
+    count = 0
+    for i in range(len(s)):
+        if s[i] != a[i]:
+            count += 1
+    print(count)
 
 for _ in range(test_cases()):
     solve()

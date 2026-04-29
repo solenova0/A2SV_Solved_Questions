@@ -22,32 +22,24 @@ yn = lambda c: "YES" if c else "NO"
 
 RANDOM = randint(1, 2**32 - 1)
 xor = lambda x: x ^ RANDOM
-
 test_cases = lambda d=0: intinput() if d == 0 else d
 
 def solve():
-    n, x = map(int, input().split())
-    a = list(map(int, input().split()))
+    n, m = mapinput()
+    deg = [0] * (n + 1)
 
-    low, high = 1, 2 * 10**9
+    for _ in range(m):
+        u, v = map(int, input().split())
+        deg[u] += 1
+        deg[v] += 1
 
-    def can(h):
-        water = 0
-        for v in a:
-            if v < h:
-                water += (h - v)
-                if water > x:
-                    return False
-        return True
+    count = Counter(deg[1:])
+    leafs = count[1]
+    x = (n - leafs) - 1
+    y = leafs // x
 
-    while low <= high:
-        mid = (low + high) // 2
-        if can(mid):
-            low = mid + 1
-        else:
-            high = mid - 1
+    print(x, y)
 
-    print(high)
 
 for _ in range(test_cases()):
     solve()

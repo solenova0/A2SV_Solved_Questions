@@ -26,28 +26,37 @@ xor = lambda x: x ^ RANDOM
 test_cases = lambda d=0: intinput() if d == 0 else d
 
 def solve():
-    n, x = map(int, input().split())
-    a = list(map(int, input().split()))
+    n = num()
+    g = [word() for _ in range(n)]
 
-    low, high = 1, 2 * 10**9
+    adj = [[] for _ in range(n)]
+    indeg = [0] * n
 
-    def can(h):
-        water = 0
-        for v in a:
-            if v < h:
-                water += (h - v)
-                if water > x:
-                    return False
-        return True
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                continue
+            if g[i][j] == '1':
+                adj[i].append(j)
+                indeg[j] += 1
 
-    while low <= high:
-        mid = (low + high) // 2
-        if can(mid):
-            low = mid + 1
-        else:
-            high = mid - 1
+    q = deque()
 
-    print(high)
+    for i in range(n):
+        if indeg[i] == 0:
+            q.append(i)
+
+    res = []
+    while q:
+        u = q.popleft()
+        res.append(u + 1)
+
+        for v in adj[u]:
+            indeg[v] -= 1
+            if indeg[v] == 0:
+                q.append(v)
+
+    print(*res)
 
 for _ in range(test_cases()):
     solve()

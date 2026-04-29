@@ -1,30 +1,80 @@
-from collections import deque
-t = int(input())
-for _ in range(t):
-    n, k, p, m = map(int, input().split())
-    a = list(map(int, input().split()))
+import sys, math, itertools, heapq
+from collections import Counter, defaultdict, deque
+from bisect import bisect_left, bisect_right
+from functools import cmp_to_key
+from operator import itemgetter
+from random import randint
 
-    deck = deque([(a[i], i) for i in range(n)])
-    ans = 0
+input = sys.stdin.readline
 
-    while True:
-        best = float('inf')
-        idx = -1
-        for i in range(k):
-            if deck[i][0] < best:
-                best = deck[i][0]
-                idx = i
+intinput  = lambda: int(input())
+strinput  = lambda: input().strip()
+listinput = lambda: list(map(int, input().split()))
+tupleinput= lambda: tuple(map(int, input().split()))
+mapinput  = lambda: map(int, input().split())
+matrixintinput = lambda n: [listinput() for _ in range(n)]
+matrixstrinput = lambda n: [input().split() for _ in range(n)]
 
-        if m < best:
-            break
+num, arr, word = intinput, listinput, strinput
+words = lambda: input().split()
 
-        m -= best
+yn = lambda c: "YES" if c else "NO"
 
-        if deck[idx][1] == p-1:
-            ans += 1
+RANDOM = randint(1, 2**32 - 1)
+xor = lambda x: x ^ RANDOM
 
-        card = deck[idx]
-        del deck[idx]
-        deck.append(card)
+test_cases = lambda d=0: intinput() if d == 0 else d
 
-    print(ans)
+def solve():
+        n, k, p, m =mapinput()
+        a = arr()
+        p -= 1  
+        deck = deque(a)
+        
+        ans = 0
+        energy = m
+        
+        while True:
+            found = False
+            for i in range(min(k, len(deck))):
+                if i == p:
+                    found = True
+                    break
+            
+            if found:
+                if energy >= deck[p]:
+                    energy -= deck[p]
+                    ans += 1
+                    
+                    val = deck[p]
+                    del deck[p]
+                    deck.append(val)
+                    
+                    p = len(deck) - 1
+                else:
+                    break
+            else:
+                idx = -1
+                mn = 10**9
+                
+                for i in range(k):
+                    if deck[i] < mn:
+                        mn = deck[i]
+                        idx = i
+                
+                if energy < mn:
+                    break
+                
+                energy -= mn
+                val = deck[idx]
+                del deck[idx]
+                deck.append(val)
+                
+                if idx < p:
+                    p -= 1
+                elif idx == p:
+                    p = len(deck) - 1
+        print(ans)
+
+for _ in range(test_cases()):
+    solve()

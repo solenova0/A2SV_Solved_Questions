@@ -26,28 +26,27 @@ xor = lambda x: x ^ RANDOM
 test_cases = lambda d=0: intinput() if d == 0 else d
 
 def solve():
-    n, x = map(int, input().split())
-    a = list(map(int, input().split()))
+    n, m = mapinput()
+    grid = [word() for _ in range(n)]
 
-    low, high = 1, 2 * 10**9
+    row = [0] * n
+    col = [0] * m
 
-    def can(h):
-        water = 0
-        for v in a:
-            if v < h:
-                water += (h - v)
-                if water > x:
-                    return False
-        return True
+    # Count stars per row and column
+    for i in range(n):
+        for j in range(m):
+            if grid[i][j] == '*':
+                row[i] += 1
+                col[j] += 1
 
-    while low <= high:
-        mid = (low + high) // 2
-        if can(mid):
-            low = mid + 1
-        else:
-            high = mid - 1
+    # Count triangles
+    ans = 0
+    for i in range(n):
+        for j in range(m):
+            if grid[i][j] == '*':
+                ans += (row[i] - 1) * (col[j] - 1)
 
-    print(high)
+    print(ans)
 
-for _ in range(test_cases()):
+for _ in range(test_cases(1)):
     solve()

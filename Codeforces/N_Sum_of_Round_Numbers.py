@@ -24,30 +24,19 @@ RANDOM = randint(1, 2**32 - 1)
 xor = lambda x: x ^ RANDOM
 
 test_cases = lambda d=0: intinput() if d == 0 else d
-
 def solve():
-    n, x = map(int, input().split())
-    a = list(map(int, input().split()))
-
-    low, high = 1, 2 * 10**9
-
-    def can(h):
-        water = 0
-        for v in a:
-            if v < h:
-                water += (h - v)
-                if water > x:
-                    return False
-        return True
-
-    while low <= high:
-        mid = (low + high) // 2
-        if can(mid):
-            low = mid + 1
-        else:
-            high = mid - 1
-
-    print(high)
+    n = input().strip()
+    length = len(n)
+    
+    res = []
+    
+    for i in range(length):
+        if n[i] != '0':
+            value = int(n[i]) * (10 ** (length - i - 1))
+            res.append(value)
+    
+    print(len(res))
+    print(*res)
 
 for _ in range(test_cases()):
     solve()

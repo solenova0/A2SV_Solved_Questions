@@ -26,28 +26,30 @@ xor = lambda x: x ^ RANDOM
 test_cases = lambda d=0: intinput() if d == 0 else d
 
 def solve():
-    n, x = map(int, input().split())
-    a = list(map(int, input().split()))
-
-    low, high = 1, 2 * 10**9
-
-    def can(h):
-        water = 0
-        for v in a:
-            if v < h:
-                water += (h - v)
-                if water > x:
-                    return False
-        return True
-
-    while low <= high:
-        mid = (low + high) // 2
-        if can(mid):
-            low = mid + 1
+    n = num()
+    a = arr()
+    pref = 0
+    good = []
+    bad = []
+    
+    for i in range(n):
+        pref += a[i]
+        if pref >= 0:
+            good.append(i)
         else:
-            high = mid - 1
-
-    print(high)
+            bad.append(i)
+    
+    p = [0] * n
+    
+    cur = n
+    for i in reversed(good):
+        p[i] = cur
+        cur -= 1
+    for i in bad:
+        p[i] = cur
+        cur -= 1
+    
+    print(*p)
 
 for _ in range(test_cases()):
     solve()
