@@ -125,3 +125,68 @@ print(maxlen , count)
 
 # if __name__ == "__main__":
 #     solve()
+
+
+
+
+# from collections import Counter
+# from heapq import heappush, heappop
+
+# def solve():
+#     n = int(input())
+#     nums = list(map(int, input().split()))
+#     count = Counter(nums)
+#     heap = []
+    
+#     for freq in count.values():
+#         heappush(heap, -freq)
+    
+#     while len(heap) > 1:
+#         a = -heappop(heap)
+#         b = -heappop(heap)
+#         a -= 1
+#         b -= 1
+#         if a:
+#             heappush(heap, -a)
+#         if b:
+#             heappush(heap, -b)
+    
+#     if heap:
+#         return -heap[0]
+#     else:
+#         return 0
+
+# for _ in range(int(input())):
+#     print(solve())
+
+
+import heapq
+
+N, M = map(int, input().split())
+indeg = [0] * N
+out = [[] for _ in range(N)]
+for _ in range(M):
+    a, b = map(int, input().split())
+    a -= 1
+    b -= 1
+    indeg[b] += 1
+    out[a].append(b)
+
+heap = []
+for i in range(N):
+    if indeg[i] == 0:
+        heapq.heappush(heap, i)
+
+ans = []
+while heap:
+    i = heapq.heappop(heap)
+    ans.append(i)
+    for j in out[i]:
+        indeg[j] -= 1
+        if indeg[j] == 0:
+        	heapq.heappush(heap, j)
+
+if len(ans) != N:
+    print(-1)
+else:
+    print(*[x + 1 for x in ans])
