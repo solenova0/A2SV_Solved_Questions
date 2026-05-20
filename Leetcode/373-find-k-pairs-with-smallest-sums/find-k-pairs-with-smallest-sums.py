@@ -5,15 +5,10 @@ class Solution:
 
         heap = []
         for i in range(min(k, len(nums1))):
-            heapq.heappush(
-                heap,
-                (nums1[i] + nums2[0], i, 0)
-            )
+            heapq.heappush(heap,(nums1[i] + nums2[0], i, 0))
 
         res = []
-
         while heap and len(res) < k:
-
             _, i, j = heapq.heappop(heap)
 
             res.append([nums1[i], nums2[j]])
