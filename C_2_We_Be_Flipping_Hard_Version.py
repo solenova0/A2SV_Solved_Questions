@@ -1,61 +1,47 @@
+inf = float('inf')
 for _ in range(int(input())):
     n = int(input())
     a = [0] + list(map(int, input().split()))
-
-    dp = [float('-inf')] * 4
-    dp[0] = 0
-
+    dp = [0, -inf, -inf, -inf]
     choice = [[0] * 4 for _ in range(n + 1)]
 
     for i in range(n, 0, -1):
-        ndp = [float('-inf')] * 4
-
+        new_dp = [-inf] * 4
         for s in range(4):
-            if dp[s] == float('-inf'):
+
+            if dp[s] == -inf:
                 continue
+            if s < 2:
+                value = a[i]
+            else:
+                value = -a[i]
 
-            f = s >> 1
-            h = s & 1
+            #don't take
+            if dp[s] + value > new_dp[s]:
+                new_dp[s] = dp[s] + value
+                choice[i][s] = s * 2  
+            #  take
+            can_take = (s % 2 == 1) or (a[i] > 0)
 
-            val = a[i] if f == 0 else -a[i]
+            if can_take:
+                ns = (s ^ 2) | 1
+                if dp[s] - value > new_dp[ns]:
+                    new_dp[ns] = dp[s] - value
+                    choice[i][ns] = s * 2 + 1
 
-            # don't take
-            if dp[s] + val > ndp[s]:
-                ndp[s] = dp[s] + val
-                choice[i][s] = s << 1
-
-            # take
-            if h or a[i] > 0:
-                nf = f ^ 1
-                ns = (nf << 1) | 1
-
-                val2 = a[i] if nf == 0 else -a[i]
-
-                if dp[s] + val2 > ndp[ns]:
-                    ndp[ns] = dp[s] + val2
-                    choice[i][ns] = (s << 1) | 1
-
-        dp = ndp
-
-    best = max(range(4), key=lambda x: dp[x])
+        dp = new_dp
+    cur = max(range(4), key=lambda x: dp[x])
 
     ops = []
-    cur = best
 
     for i in range(1, n + 1):
-        x = choice[i][cur]
-
-        take = x & 1
-        prev = x >> 1
-
-        if take:
+        if choice[i][cur] % 2 == 1:
             ops.append(i)
 
-        cur = prev
+        cur = choice[i][cur] // 2
 
-    ops = ops[::-1]
-
-    if not ops:
+    ops.reverse()                  
+    if len(ops) == 0: #order
         print(0)
         print()
         continue
@@ -74,4 +60,3 @@ for _ in range(int(input())):
 
     print(len(ans))
     print(*ans)
-
