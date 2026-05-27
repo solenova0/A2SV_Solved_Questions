@@ -1,10 +1,9 @@
 class Solution:
-    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:  # Prim's Algorithm 
         n = len(points)
         visited = set()
         min_heap = [(0, 0)]  # (cost , node)
         ans = 0
-
         while len(visited) < n:
 
             cost, u = heapq.heappop(min_heap)
@@ -26,3 +25,6 @@ class Solution:
                     heapq.heappush(min_heap, (dist, v))
 
         return ans
+        
+
+        # O(n^2 logn)
