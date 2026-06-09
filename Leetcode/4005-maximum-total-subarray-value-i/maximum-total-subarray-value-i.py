@@ -1,9 +1,12 @@
 class Solution:
     def maxTotalValue(self, nums: List[int], k: int) -> int:
-        Min = Max = nums[0]
+        min_ = nums[0] 
+        max_ = nums[0]
 
         for v in nums:
-            Min = min(Min, v)
-            Max = max(Max, v)
+            min_ = min(min_, v)
+            max_ = max(max_, v)
 
-        return (Max - Min) * k
+        ans = (max_ - min_) * k
+
+        return ans
