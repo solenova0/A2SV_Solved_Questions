@@ -26,27 +26,30 @@ xor = lambda x: x ^ RANDOM
 test_cases = lambda d=0: intinput() if d == 0 else d
 
 def solve():
-    import sys
-from bisect import bisect_right
+    a = input().strip()
+    b = input().strip()
+    if a[0] == b[0]:
+        print("YES")
+        print(a[0] + "*")
+        return
 
-input = sys.stdin.readline
+    if a[-1] == b[-1]:
+        print("YES")
+        print("*" + a[-1])
+        return
+    found = False
 
+    for i in range(len(a) - 1):
+        pair = a[i:i + 2]
 
-def solve():
-    n = num()
-    a = arr()
-    odd = 0
-    even_0 = 0
-    even_2 = 0
+        if pair in b:
+            print("YES")
+            print("*" + pair + "*")
+            found = True
+            break
 
-    for x in a:
-        if x % 2 == 1:
-            odd += 1
-        elif x % 4 == 0:
-            even_0 += 1
-        else:
-            even_2 += 1
+    if not found:
+        print("NO")
 
-    print(max(odd, even_0, even_2))
 for _ in range(test_cases()):
     solve()

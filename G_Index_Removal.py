@@ -26,27 +26,39 @@ xor = lambda x: x ^ RANDOM
 test_cases = lambda d=0: intinput() if d == 0 else d
 
 def solve():
-    import sys
-from bisect import bisect_right
-
-input = sys.stdin.readline
-
-
-def solve():
-    n = num()
+    n, k = mapinput()
     a = arr()
-    odd = 0
-    even_0 = 0
-    even_2 = 0
+    pref = [0] * n
+    pref[0] = a[0]
 
-    for x in a:
-        if x % 2 == 1:
-            odd += 1
-        elif x % 4 == 0:
-            even_0 += 1
-        else:
-            even_2 += 1
+    for i in range(1, n):
+        pref[i] = pref[i - 1] + a[i]
 
-    print(max(odd, even_0, even_2))
+    b = [a[i] - i * k for i in range(n)]
+    ans = [0] * n
+
+    for i in range(1, n - 1):
+        target = a[i - 1] - i * k
+        lo = i + 1
+        hi = n - 1
+
+        while lo <= hi:
+            mid = (lo + hi) // 2
+
+            if b[mid] > target:
+                lo = mid + 1
+            else:
+                hi = mid - 1
+
+        cnt = lo - i - 1
+
+        if cnt > 0:
+            sum_a = pref[lo - 1] - pref[i]
+            sum_req = k * cnt * (cnt + 1) // 2
+            total = a[i - 1] * cnt
+            ans[i] = (sum_a - total - sum_req)
+
+    print(*ans)
+
 for _ in range(test_cases()):
     solve()

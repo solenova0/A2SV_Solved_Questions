@@ -25,28 +25,23 @@ xor = lambda x: x ^ RANDOM
 
 test_cases = lambda d=0: intinput() if d == 0 else d
 
+fb = ""
+
+x = 1
+while len(fb) < 100:
+    if x % 3 == 0:
+        fb += "F"
+    if x % 5 == 0:
+        fb += "B"
+    x += 1
 def solve():
-    import sys
-from bisect import bisect_right
+    k = num()
+    s = input().strip()
 
-input = sys.stdin.readline
+    if s in fb:
+        print("YES")
+    else:
+        print("NO")
 
-
-def solve():
-    n = num()
-    a = arr()
-    odd = 0
-    even_0 = 0
-    even_2 = 0
-
-    for x in a:
-        if x % 2 == 1:
-            odd += 1
-        elif x % 4 == 0:
-            even_0 += 1
-        else:
-            even_2 += 1
-
-    print(max(odd, even_0, even_2))
 for _ in range(test_cases()):
     solve()
